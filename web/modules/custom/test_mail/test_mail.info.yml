@@ -1,0 +1,5 @@
+name: 'Test Mail'
+type: module
+description: 'Módulo para probar el envío de correos electrónicos.'
+core_version_requirement: ^11.0.0
+package: Custom

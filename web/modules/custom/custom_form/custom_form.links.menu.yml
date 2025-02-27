@@ -1,0 +1,5 @@
+custom_form.settings:
+  title: 'Custom Form Settings'
+  description: 'Configure the custom form.'
+  route_name: 'custom_form.settings'
+  parent: system.admin_config

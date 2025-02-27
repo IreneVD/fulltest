@@ -1,0 +1,8 @@
+vendor/
+web/core/
+web/profiles/
+web/sites/
+web/themes/contrib/
+web/modules/contrib/
+.gitattributes
+.composer.lock

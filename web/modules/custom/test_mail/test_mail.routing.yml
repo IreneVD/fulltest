@@ -1,8 +1,8 @@
 custom_form.settings:
-  path: '/admin/config/custom_form'
+  path: '/admin/config/test_mail'
   defaults:
-    _form: '\Drupal\test_mail\Form\TestMailForm'
-    _title: 'Custom Form Configuration'
+    _form: '\Drupal\test_mail\Form\TestMail'
+    _title: 'Test Mail Configuration'
   requirements:
     _permission: 'administer site configuration'
   options:

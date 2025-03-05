@@ -18,7 +18,7 @@ class CustomFormBlock extends BlockBase {
    */
   public function build() {
     return [
-      'form' => \Drupal::formBuilder()->getForm('\Drupal\custom_form\Form\CustomForm'),
+      'form' => \Drupal::formBuilder()->getForm('\Drupal\custom_form\Form\CustomBlockForm'),
       '#cache' => [
         'max-age' => 0,
       ],

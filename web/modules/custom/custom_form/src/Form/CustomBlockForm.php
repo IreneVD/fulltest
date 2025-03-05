@@ -11,14 +11,20 @@ use Drupal\Core\Form\FormStateInterface;
  * @file
  * Form Inscription Form
  */
-class CustomForm extends FormBase {
+class CustomBlockForm extends FormBase {
 
   protected $mailManager;
 
+    /**
+   * {@inheritdoc}
+   */
   public function __construct(MailManagerInterface $mail_manager) {
     $this->mailManager = $mail_manager;
   }
 
+    /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('plugin.manager.mail')
@@ -36,6 +42,8 @@ class CustomForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $custom_message = 'Patatas con limón';
+
     $form['name'] = [
       '#title' => $this->t('Your name'),
       '#type' => 'textfield',
@@ -83,10 +91,7 @@ class CustomForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->messenger()->addStatus($this->t('Your info @name and @subject has been sent', [
-      '@name' => $form_state->getValue('name'),
-      '@subject' => $form_state->getValue('subject'),
-    ]));
+    $config = $this->config('custom_form.settings');
 
     $params = [
       'subject' => $form_state->getValue('subject'),
@@ -99,27 +104,36 @@ class CustomForm extends FormBase {
       <html>
         <body style="font-family: Arial, sans-serif; line-height: 1.6;">
           <table style="width: 100%; border-collapse: collapse;">
-            <tr style="background-color: #f2f2f2; color: #ff0447; text-align: center; border-bottom: 1px solid #ddd;">
+            <tr style="background-color: #f2f2f2; color: #ff0447; text-align: center; border-bottom: 1px solid;">
               <td colspan="2" style="padding: 10px;">
                 <h2>' . $params['subject'] . '</h2>
               </td>
             </tr>
-            <tr style="color:rgb(245, 237, 237);>
+            <tr style="color:rgb(245, 237, 237);">
               <td style="padding: 10px; width: 100px;"><strong>Name:</strong></td>
               <td style="padding: 10px;">' . $params['name'] . '</td>
             </tr>
-            <tr style="color:rgb(245, 237, 237);>
+            <tr style="color:rgb(245, 237, 237);">
               <td style="padding: 10px; width: 100px;"><strong>Email:</strong></td>
               <td style="padding: 10px;">' . $params['email'] . '</td>
             </tr>
-            <tr style="color:rgb(245, 237, 237);>
+            <tr style="color:rgb(245, 237, 237);">
               <td style="padding: 10px; width: 100px;"><strong>Message:</strong></td>
               <td style="padding: 10px;">' . nl2br($params['message']) . '</td>
             </tr>
-            <tr style="background-color: #f2f2f2; color: #ff0447; text-align: center; border-top: 1px solid #ddd;">
-              <td colspan="2" style="padding: 10px; font-size: 0.9em;">
-                This message was sent from the contact form on ' . \Drupal::config('system.site')->get('name') . '.
-              </td>
+          </table>
+          <table border="1">
+            <tr>
+              <th>Encabezado 1</th>
+              <th>Encabezado 2</th>
+            </tr>
+            <tr>
+              <td>Celda 1</td>
+              <td>Celda 2</td>
+            </tr>
+            <tr>
+              <td>Celda 3</td>
+              <td>Celda 4</td>
             </tr>
           </table>
         </body>
@@ -133,9 +147,9 @@ class CustomForm extends FormBase {
     ]);
 
     if ($send['result']) {
-      \Drupal::messenger()->addMessage($this->t('Message sent successfully.'));
+      \Drupal::messenger()->addMessage($config->get('custom_config_message') ?? $this->t('Message sent successfully'));
     } else {
-      \Drupal::messenger()->addMessage($this->t('There was a problem sending your message.'));
+      \Drupal::messenger()->addError($this->t('There was a problem sending your message. Please try again.'));
     }
   }
 }

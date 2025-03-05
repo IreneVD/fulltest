@@ -6,10 +6,9 @@
 function test_mail_mail($key, &$message, $params) {
   switch ($key) {
     case 'test_message':
-      $message['from'] = 'iverdejad@ceinmark.com';
       $message['subject'] = $params['subject'];
       $message['body'][] = $params['message'];
-      $message['headers']['Content-Type'] = 'text/plain; charset=UTF-8';
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8';
       break;
   }
 }

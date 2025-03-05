@@ -16,8 +16,10 @@
     ],
     "require": {
         "composer/installers": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "drupal/admin_toolbar": "^3.5",
         "drupal/bootstrap_barrio": "^5.5",
+        "drupal/coder": "^8.3",
         "drupal/contact_formatter": "^2.0",
         "drupal/core-composer-scaffold": "^11.1",
         "drupal/core-project-message": "^11.1",

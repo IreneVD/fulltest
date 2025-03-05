@@ -1,0 +1,5 @@
+test_mail.form:
+  title: 'Test Mail Form Settings'
+  description: 'Configure the test mail form.'
+  route_name: 'test_mail.form'
+  parent: system.admin_config
